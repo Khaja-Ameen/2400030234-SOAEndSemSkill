@@ -1,0 +1,31 @@
+package com.klu.bank.controller;
+
+import org.springframework.web.bind.annotation.*;
+import com.klu.bank.entity.Bank;
+import com.klu.bank.service.BankService;
+
+@RestController
+@RequestMapping("/bank")
+public class BankController {
+
+    private final BankService service;
+
+    public BankController(BankService service) {
+        this.service = service;
+    }
+
+    // First API: Normal login
+    @PostMapping("/login")
+    public String login() {
+        return service.login();
+    }
+
+    // Second API: Check username and password
+    @PostMapping("/checkLogin")
+    public String checkLogin(@RequestBody Bank bank) {
+        return service.checkLogin(
+            bank.getUsername(),
+            bank.getPassword()
+        );
+    }
+}

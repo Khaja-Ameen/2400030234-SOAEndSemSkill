@@ -1,0 +1,31 @@
+package com.klu.bank.service;
+
+import org.springframework.stereotype.Service;
+import com.klu.bank.repository.BankRepository;
+
+@Service
+public class BankService {
+
+    // First method: Normal login
+    public String login() {
+        return "Login method executed successfully";
+    }
+
+    private final BankRepository repo;
+
+    public BankService(BankRepository repo) {
+        this.repo = repo;
+    }
+
+    // Second method: Verify login using PostgreSQL
+    public String checkLogin(String username, String password) {
+
+        boolean result = repo.existsByUsernameAndPassword(username, password);
+
+        if (result) {
+            return "Valid Login";
+        } else {
+            return "Invalid Username or Password";
+        }
+    }
+}

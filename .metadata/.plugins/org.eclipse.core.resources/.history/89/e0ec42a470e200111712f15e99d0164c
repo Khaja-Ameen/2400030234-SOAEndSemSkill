@@ -1,0 +1,30 @@
+package com.klu.bank.service;
+
+import org.springframework.stereotype.Service;
+import com.klu.bank.repository.BankRepository;
+
+@Service
+public class BankService {
+
+    private final BankRepository repo;
+
+    public BankService(BankRepository repo) {
+        this.repo = repo;
+    }
+
+    
+    public String login(String username, String password) {
+
+        if (verifyLogin(username, password)) {
+            return "Login Successful";
+        }
+
+        return "Invalid Username or Password";
+    }
+
+   
+    public boolean verifyLogin(String username, String password) {
+
+        return repo.existsByUsernameAndPassword(username, password);
+    }
+}
